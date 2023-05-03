@@ -6,10 +6,18 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
-import { useFonts } from "expo-font";
+import { useState } from "react";
 
 const LoginScreen = () => {
+  const [activeInput, setActiveInput] = useState("");
+
+  const handleActiveInput = (inputName) => {
+    setActiveInput(inputName);
+
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -18,23 +26,37 @@ const LoginScreen = () => {
       >
         <View style={styles.formWrapper}>
           <Text style={styles.formTitle}>ВОЙТИ</Text>
-          <View style={styles.form}>
-            <TextInput
-              style={[styles.formInput,]}
-              name={"email"}
-              placeholder={"Адрес электронной почты"}
-              placeholderTextColor={"#BDBDBD"}
-            />
-            <TextInput
-              style={[styles.formInput, styles.formInputLastChild]}
-              name={"password"}
-              placeholder={"Пароль"}
-              placeholderTextColor={"#BDBDBD"}
-              secureTextEntry={true}
-            />
-          </View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
+            <View style={styles.form}>
+              <TextInput
+                style={[
+                  styles.formInput,
+                  activeInput === "email" && styles.formInputActive,
+                ]}
+                placeholder={"Адрес электронной почты"}
+                placeholderTextColor={"#BDBDBD"}
+                onFocus={() => handleActiveInput("email")}
+              />
+              <TextInput
+                style={[
+                  styles.formInput,
+                  styles.formInputLastChild,
+                  activeInput === "password" && styles.formInputActive,
+                ]}
+                placeholder={"Пароль"}
+                placeholderTextColor={"#BDBDBD"}
+                secureTextEntry={true}
+                onFocus={() => handleActiveInput("password")}
+              />
+              <TouchableOpacity activeOpacity={0.9} style={styles.passwordBtn}>
+                <Text style={styles.passwordBtnText}>Показать</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
           <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn}>
-            <Text style={styles.loginText}>ВОЙТИ</Text>
+            <Text style={styles.loginText}>Войти</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8}>
             <Text style={styles.signUpLink}>
@@ -66,7 +88,6 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     fontFamily: "Roboto-Medium",
-    fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
     textAlign: "center",
@@ -77,6 +98,7 @@ const styles = StyleSheet.create({
   form: {
     marginTop: 32,
     marginBottom: 43,
+    position: "relative",
   },
   formInput: {
     marginHorizontal: 16,
@@ -91,8 +113,11 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
   },
-  formInputActive:{
-    backgroundColor:"#FFFFFF",
+  formInputActive: {
+    marginHorizontal: 16,
+    height: 50,
+    borderRadius: 8,
+    backgroundColor: "#FFFFFF",
     borderColor: "#FF6C00",
     borderWidth: 1,
     color: "#212121",
@@ -100,10 +125,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     padding: 16,
-    marginBottom: 16,
   },
   formInputLastChild: {
     marginBottom: 0,
+  },
+  passwordBtn: {
+    position: "absolute",
+    top: 82,
+    right: 32,
+  },
+  passwordBtnText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
   },
   loginBtn: {
     height: 50,
@@ -116,7 +151,6 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontFamily: "Roboto-Regular",
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: "#fff",
