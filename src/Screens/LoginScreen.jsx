@@ -7,65 +7,81 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useState } from "react";
 
 const LoginScreen = () => {
-  const [activeInput, setActiveInput] = useState("");
+  //   const [activeInput, setActiveInput] = useState("");
+  const [isShownKeyboard, setIsShownKeyboard] = useState(false);
 
-  const handleActiveInput = (inputName) => {
-    setActiveInput(inputName);
-
+  const keyboardHide = () => {
+    setIsShownKeyboard(false);
+    Keyboard.dismiss();
   };
 
+  //   const handleActiveInput = (inputName) => {
+  //     setActiveInput(inputName);
+
+  //   };
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../assets/images/image.jpg")}
-        style={styles.image}
-      >
-        <View style={styles.formWrapper}>
-          <Text style={styles.formTitle}>ВОЙТИ</Text>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-          >
-            <View style={styles.form}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/images/image.jpg")}
+          style={styles.image}
+        >
+          <View style={{ ...styles.form, height: isShownKeyboard ? 246 : 489 }}>
+            <Text style={styles.formTitle}>ВОЙТИ</Text>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+            >
               <TextInput
-                style={[
-                  styles.formInput,
-                  activeInput === "email" && styles.formInputActive,
-                ]}
+                // style={[
+                //   styles.formInput,
+                //   activeInput === "email" && styles.formInputActive,
+                // ]}
+                style={styles.loginInput}
                 placeholder={"Адрес электронной почты"}
                 placeholderTextColor={"#BDBDBD"}
-                onFocus={() => handleActiveInput("email")}
+                onFocus={() => setIsShownKeyboard(true)}
+                //
               />
               <TextInput
-                style={[
-                  styles.formInput,
-                  styles.formInputLastChild,
-                  activeInput === "password" && styles.formInputActive,
-                ]}
+                // style={[
+                //   styles.formInput,
+                //   styles.formInputLastChild,
+                //   activeInput === "password" && styles.formInputActive,
+                // ]}
+                style={styles.passwordInput}
                 placeholder={"Пароль"}
                 placeholderTextColor={"#BDBDBD"}
                 secureTextEntry={true}
-                onFocus={() => handleActiveInput("password")}
+                onFocus={() => setIsShownKeyboard(true)}
+                // onFocus={() => handleActiveInput("password")}
               />
               <TouchableOpacity activeOpacity={0.9} style={styles.passwordBtn}>
                 <Text style={styles.passwordBtnText}>Показать</Text>
               </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
-          <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn}>
-            <Text style={styles.loginText}>Войти</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8}>
-            <Text style={styles.signUpLink}>
-              Нет аккаунта? Зарегистрироваться
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+            </KeyboardAvoidingView>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.loginBtn}
+              onPress={keyboardHide}
+            >
+              <Text style={styles.loginText}>Войти</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.8}>
+              <Text style={styles.signUpLink}>
+                Нет аккаунта? Зарегистрироваться
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -79,10 +95,10 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
-  formWrapper: {
+  form: {
     backgroundColor: "#fff",
     width: "100%",
-    height: 489,
+    // height: 489,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
@@ -94,13 +110,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.01,
     color: "#212121",
     marginTop: 32,
+    marginBottom: 32,
   },
-  form: {
-    marginTop: 32,
-    marginBottom: 43,
-    position: "relative",
-  },
-  formInput: {
+  //   form: {
+  //     marginTop: 32,
+  //     position: "relative",
+  //     marginBottom: 43,
+  //   },
+  loginInput: {
     marginHorizontal: 16,
     height: 50,
     backgroundColor: "#F6F6F6",
@@ -112,6 +129,19 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     padding: 16,
     marginBottom: 16,
+  },
+  passwordInput: {
+    marginHorizontal: 16,
+    height: 50,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 8,
+    borderColor: "#E8E8E8",
+    borderWidth: 1,
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    padding: 16,
+    marginBottom: 43,
   },
   formInputActive: {
     marginHorizontal: 16,
