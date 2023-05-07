@@ -15,7 +15,7 @@ import { useState } from "react";
 
 const RegistrationScreen = () => {
   const inititalState = {
-    logih: "",
+    login: "",
     email: "",
     password: "",
   };
@@ -66,7 +66,7 @@ const RegistrationScreen = () => {
                 ]}
                 placeholder={"Логин"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.email || ""}
+                value={state.login}
                 onFocus={() => handleInput("login")}
                 onBlur={keyboardHide}
                 onChangeText={(value) =>
@@ -80,7 +80,7 @@ const RegistrationScreen = () => {
                 ]}
                 placeholder={"Адрес электронной почты"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.email || ""}
+                value={state.email}
                 onFocus={() => handleInput("email")}
                 onBlur={keyboardHide}
                 onChangeText={(value) =>
