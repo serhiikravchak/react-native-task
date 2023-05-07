@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./src/Screens/LoginScreen";
-import RegistationScreen from "./src/Screens/RegistationScreen";
+import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import { useFonts } from "expo-font";
 
 export default function App() {
@@ -15,21 +15,9 @@ export default function App() {
   }
   return (
     <>
-      <LoginScreen/>
+      <RegistrationScreen/>
       <StatusBar />
     </>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#000',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-
-//   text:{
-//     color: '#f0f'
-//   },
-// });
