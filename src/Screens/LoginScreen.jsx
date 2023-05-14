@@ -11,9 +11,10 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useState } from "react";
-
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
 
   const inititalState = {
     email: "",
@@ -23,8 +24,6 @@ const LoginScreen = () => {
   const [state, setState] = useState(inititalState);
   const [activeInput, setActiveInput] = useState("");
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
-
-  
 
   const handleInput = (inputName) => {
     setActiveInput(inputName);
@@ -96,7 +95,10 @@ const LoginScreen = () => {
             >
               <Text style={styles.loginText}>Войти</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Register")}
+            >
               <Text style={styles.signUpLink}>
                 Нет аккаунта? Зарегистрироваться
               </Text>

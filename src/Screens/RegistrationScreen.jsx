@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
   const inititalState = {
@@ -23,6 +24,8 @@ const RegistrationScreen = () => {
   const [state, setState] = useState(inititalState);
   const [activeInput, setActiveInput] = useState("");
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
+
+  const navigation = useNavigation();
 
   const handleInput = (inputName) => {
     setActiveInput(inputName);
@@ -39,7 +42,7 @@ const RegistrationScreen = () => {
     console.log(state);
     setState(inititalState);
   };
-  
+
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
@@ -52,7 +55,8 @@ const RegistrationScreen = () => {
               <TouchableOpacity style={styles.avatarBtn}>
                 <Image
                   style={styles.avatarBtnImage}
-                  source={require("../../assets/images/addAvatarBtn.png")}/>
+                  source={require("../../assets/images/addAvatarBtn.png")}
+                />
               </TouchableOpacity>
             </View>
             <Text style={styles.formTitle}>Регистрация</Text>
@@ -114,7 +118,10 @@ const RegistrationScreen = () => {
             >
               <Text style={styles.loginText}>Зарегистрироваться</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Login")}
+            >
               <Text style={styles.signUpLink}>Уже есть аккаунт? Войти</Text>
             </TouchableOpacity>
           </View>
@@ -148,7 +155,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
   },
   avatarWrapper: {
-    
     position: "absolute",
     width: 120,
     height: 120,
@@ -157,21 +163,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
   },
-  avatarBtn:{
-    position:"absolute",
+  avatarBtn: {
+    position: "absolute",
 
     // backgroundColor: "transparent",
     // borderColor: "#FF6C00",
     // borderWidth: 1,
     // borderRadius: "50%",
   },
-  avatarBtnImage:{
+  avatarBtnImage: {
     position: "absolute",
     top: 78,
     left: 107,
     height: 25,
-    width:25,
-
+    width: 25,
   },
   formTitle: {
     fontFamily: "Roboto-Medium",
