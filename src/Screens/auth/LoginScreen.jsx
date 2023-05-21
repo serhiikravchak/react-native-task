@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   ImageBackground,
-  Image,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,9 +13,10 @@ import {
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const RegistrationScreen = () => {
+const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const inititalState = {
-    login: "",
     email: "",
     password: "",
   };
@@ -24,8 +24,6 @@ const RegistrationScreen = () => {
   const [state, setState] = useState(inititalState);
   const [activeInput, setActiveInput] = useState("");
   const [isShownKeyboard, setIsShownKeyboard] = useState(false);
-
-  const navigation = useNavigation();
 
   const handleInput = (inputName) => {
     setActiveInput(inputName);
@@ -47,36 +45,14 @@ const RegistrationScreen = () => {
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/images/image.jpg")}
+          source={require("../../../assets/images/image.jpg")}
           style={styles.image}
         >
           <View style={styles.form}>
-            <View style={styles.avatarWrapper}>
-              <TouchableOpacity style={styles.avatarBtn}>
-                <Image
-                  style={styles.avatarBtnImage}
-                  source={require("../../assets/images/addAvatarBtn.png")}
-                />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.formTitle}>Регистрация</Text>
+            <Text style={styles.formTitle}>Войти</Text>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : ""}
             >
-              <TextInput
-                style={[
-                  styles.formInput,
-                  activeInput === "login" && styles.formInputActive,
-                ]}
-                placeholder={"Логин"}
-                placeholderTextColor={"#BDBDBD"}
-                value={state.login}
-                onFocus={() => handleInput("login")}
-                onBlur={keyboardHide}
-                onChangeText={(value) =>
-                  setState((prevState) => ({ ...prevState, login: value }))
-                }
-              />
               <TextInput
                 style={[
                   styles.formInput,
@@ -84,12 +60,13 @@ const RegistrationScreen = () => {
                 ]}
                 placeholder={"Адрес электронной почты"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.email}
+                value={state.email || ""}
                 onFocus={() => handleInput("email")}
                 onBlur={keyboardHide}
                 onChangeText={(value) =>
                   setState((prevState) => ({ ...prevState, email: value }))
                 }
+                //
               />
               <TextInput
                 style={[
@@ -116,13 +93,15 @@ const RegistrationScreen = () => {
               style={styles.loginBtn}
               onPress={handleSubmit}
             >
-              <Text style={styles.loginText}>Зарегистрироваться</Text>
+              <Text style={styles.loginText}>Войти</Text>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("Registration")}
             >
-              <Text style={styles.signUpLink}>Уже есть аккаунт? Войти</Text>
+              <Text style={styles.signUpLink}>
+                Нет аккаунта? Зарегистрироваться
+              </Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -146,37 +125,13 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
   },
-
   form: {
     backgroundColor: "#fff",
+
     width: "100%",
-    height: 549,
+    height: 489,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-  },
-  avatarWrapper: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    left: 128,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-  },
-  avatarBtn: {
-    position: "absolute",
-
-    // backgroundColor: "transparent",
-    // borderColor: "#FF6C00",
-    // borderWidth: 1,
-    // borderRadius: "50%",
-  },
-  avatarBtnImage: {
-    position: "absolute",
-    top: 78,
-    left: 107,
-    height: 25,
-    width: 25,
   },
   formTitle: {
     fontFamily: "Roboto-Medium",
@@ -185,10 +140,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 0.01,
     color: "#212121",
-    marginTop: 92,
+    marginTop: 32,
     marginBottom: 32,
   },
-
+  //   form: {
+  //     marginTop: 32,
+  //     position: "relative",
+  //     marginBottom: 43,
+  //   },
   formInput: {
     marginHorizontal: 16,
     height: 50,
@@ -202,7 +161,19 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
   },
-
+  // passwordInput: {
+  //   marginHorizontal: 16,
+  //   height: 50,
+  //   backgroundColor: "#F6F6F6",
+  //   borderRadius: 8,
+  //   borderColor: "#E8E8E8",
+  //   borderWidth: 1,
+  //   fontFamily: "Roboto-Regular",
+  //   fontSize: 16,
+  //   lineHeight: 19,
+  //   padding: 16,
+  //   marginBottom: 43,
+  // },
   formInputActive: {
     marginHorizontal: 16,
     height: 50,
@@ -221,7 +192,7 @@ const styles = StyleSheet.create({
   },
   passwordBtn: {
     position: "absolute",
-    top: 148,
+    top: 82,
     right: 32,
   },
   passwordBtnText: {
@@ -255,4 +226,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationScreen;
+export default LoginScreen;

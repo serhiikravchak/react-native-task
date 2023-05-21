@@ -1,10 +1,11 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
+
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
-import LoginScreen from "./src/Screens/LoginScreen";
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
+import {useRoute} from "./router"
+
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,19 +14,10 @@ export default function App() {
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
   });
 
-  const AuthStack = createStackNavigator();
-
   if (!fontsLoaded) {
     return null;
   }
-  return (
-    <NavigationContainer>
-      <AuthStack.Navigator initialRouteName="Login">
-        <AuthStack.Screen name="Login" component={LoginScreen}/>
-        <AuthStack.Screen name="Registration" component={RegistrationScreen} />
-        <RegistrationScreen />
-        <StatusBar />
-      </AuthStack.Navigator>
-    </NavigationContainer>
-  );
+
+  const routing = useRoute(true);
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
