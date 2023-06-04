@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -34,7 +35,7 @@ export const useRoute = (isAuth) => {
 
   return (
     <MainTab.Navigator
-      screenOptions={{ tabBarShowLabel: false, tabBarStyle: {paddingTop: 9} }}
+      screenOptions={{ tabBarShowLabel: false, tabBarStyle: { height: 83, paddingTop: 9, paddingBottom: 34, } }}
     >
       <MainTab.Screen
         name="Home"
@@ -50,15 +51,17 @@ export const useRoute = (isAuth) => {
         name="Create"
         component={CreatePostsScreen}
         options={{
+          tabBarStyle: { display: "none" },
           headerShown: false,
-          tabBarItemStyle: {
-            backgroundColor: "#FF6C00",
-            width: 10,
-            // height: 40,
-            borderRadius: 20,
-          },
+          // tabBarItemStyle: {
+          //   width: 20,
+          //   backgroundColor: "#FF6C00",
+          //   borderRadius: 20,
+          // },
           tabBarIcon: ({ focused, size, color }) => (
+            <View style={styles.btn}>
             <Ionicons name="add-outline" size={size} color="#fff" />
+            </View>
           ),
         }}
       />
@@ -75,3 +78,15 @@ export const useRoute = (isAuth) => {
     </MainTab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  btn: {
+   width: 70,
+   height: 40,
+   justifyContent:'center',
+   alignItems: "center",
+   backgroundColor: "#FF6C00",
+   borderRadius: 20,
+  
+  },
+});
