@@ -17,7 +17,7 @@ const CreatePostsScreen = ({ navigation }) => {
               name="arrowleft"
               size={24}
               color="#BDBDBD"
-              onPress={() => navigation.navigate("Posts")}
+              onPress={() => navigation.navigate("Home")}
             />
           </View>
           <Text style={styles.headerText}>Cтворити публікацію</Text>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import PostsScreen from "./PostsScreen";
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <PostsScreen/>
     </View>
   );
 };
@@ -12,9 +13,7 @@ const Home = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#F5FCFF",
+      backgroundColor: "#FFF"
     },
 });   
 export default Home;
